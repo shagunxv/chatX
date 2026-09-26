@@ -8,38 +8,37 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || "http://localhost:5473",
+    origin: [process.env.CLIENT_URL , "http://localhost:5173"],
     methods: ["GET", "POST"],
   },
 });
 
 const PORT = process.env.PORT || 5000;
 
-
-// =========================
-// BASIC ROUTE
-// =========================
+// Store connected users
+const users = {};
 
 app.get("/", (req, res) => {
   res.send("ChatX server is running 🚀");
 });
 
-
-// =========================
-// SOCKET CONNECTION
-// =========================
-
 io.on("connection", (socket) => {
-
   console.log("User connected:", socket.id);
 
+  // USER JOINS
+  socket.on("join_chat", (username) => {
+    users[socket.id] = username;
 
-  // RECEIVE MESSAGE
+    console.log(`${username} joined the chat`);
+
+    // Send updated user list to everyone
+    io.emit("users_update", Object.values(users));
+  });
+
+  // MESSAGE
   socket.on("send_message", (message) => {
-
     console.log("Message received:", message);
 
-    // Add timestamp if frontend didn't provide one
     const messageWithTime = {
       ...message,
       time:
@@ -50,27 +49,22 @@ io.on("connection", (socket) => {
         }),
     };
 
-    // Send message to everyone
     io.emit("receive_message", messageWithTime);
   });
 
-
-  // USER DISCONNECTED
+  // USER DISCONNECTS
   socket.on("disconnect", () => {
+    const username = users[socket.id];
 
-    console.log("User disconnected:", socket.id);
+    delete users[socket.id];
 
+    console.log("User disconnected:", username || socket.id);
+
+    // Send updated user list
+    io.emit("users_update", Object.values(users));
   });
-
 });
 
-
-// =========================
-// START SERVER
-// =========================
-
 server.listen(PORT, "0.0.0.0", () => {
-
   console.log(`ChatX server running on http://localhost:${PORT}`);
-
 });
