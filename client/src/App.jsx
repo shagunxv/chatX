@@ -12,6 +12,9 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [connected, setConnected] = useState(false);
 
+  const [users, setUsers] = useState([]);
+  const [showPeople, setShowPeople] = useState(false);
+
   useEffect(() => {
     socket.on("connect", () => {
       console.log("Connected:", socket.id);
@@ -23,43 +26,46 @@ function App() {
     });
 
     socket.on("receive_message", (newMessage) => {
-      setMessages((prev) => [...prev, newMessage]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        newMessage
+      ]);
+    });
+
+    socket.on("users_update", (userList) => {
+      setUsers(userList);
     });
 
     return () => {
       socket.off("connect");
       socket.off("disconnect");
       socket.off("receive_message");
+      socket.off("users_update");
     };
   }, []);
 
   const joinChat = () => {
-    const name = username.trim();
+    if (username.trim() === "") return;
 
-    if (!name) return;
+    const cleanUsername = username.trim();
 
-    setUsername(name);
+    setUsername(cleanUsername);
     setJoined(true);
+
+    // Tell server that user joined
+    socket.emit("join_chat", cleanUsername);
   };
 
   const sendMessage = () => {
-    const text = message.trim();
-
-    if (!text) return;
+    if (message.trim() === "") return;
 
     socket.emit("send_message", {
       username: username,
-      text: text,
-      time: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
+      text: message,
     });
 
     setMessage("");
   };
-
-  /* ================= LOGIN SCREEN ================= */
 
   if (!joined) {
     return (
@@ -75,41 +81,31 @@ function App() {
           </header>
 
           <div className="join-screen">
+            <h2>Welcome to ChatX 👋</h2>
 
-            <div className="join-content">
+            <p>
+              Enter your name to join the conversation
+            </p>
 
-              <div className="welcome-icon">
-                💬
-              </div>
+            <div className="join-form">
 
-              <h2>Welcome to ChatX 👋</h2>
+              <input
+                type="text"
+                placeholder="Enter your name..."
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    joinChat();
+                  }
+                }}
+              />
 
-              <p>
-                Enter your name to join the conversation
-              </p>
-
-              <div className="join-form">
-
-                <input
-                  type="text"
-                  placeholder="Enter your name..."
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      joinChat();
-                    }
-                  }}
-                />
-
-                <button onClick={joinChat}>
-                  Join Chat 🚀
-                </button>
-
-              </div>
+              <button onClick={joinChat}>
+                Join Chat 🚀
+              </button>
 
             </div>
-
           </div>
 
         </div>
@@ -117,36 +113,76 @@ function App() {
     );
   }
 
-  /* ================= CHAT SCREEN ================= */
-
   return (
     <div className="app">
 
       <div className="chat-container">
 
+        {/* HEADER */}
         <header className="header">
 
           <h1>ChatX 💬</h1>
 
-          <span className={connected ? "online" : "offline"}>
-            ● {connected ? "Connected" : "Connecting..."}
-          </span>
+          <div className="header-right">
+
+            <span className={connected ? "online" : "offline"}>
+              ● {connected ? "Connected" : "Connecting..."}
+            </span>
+
+            <button
+              className="people-button"
+              onClick={() => setShowPeople(!showPeople)}
+            >
+              👥 {users.length}
+            </button>
+
+          </div>
 
         </header>
 
+        {/* PEOPLE PANEL */}
+        {showPeople && (
+          <div className="people-panel">
+
+            <div className="people-title">
+              👥 People in Chat
+            </div>
+
+            {users.length === 0 ? (
+              <p>No one is online</p>
+            ) : (
+              users.map((user, index) => (
+                <div className="person" key={index}>
+
+                  <span className="person-status">
+                    🟢
+                  </span>
+
+                  <span>
+                    {user}
+                    {user === username && " (You)"}
+                  </span>
+
+                </div>
+              ))
+            )}
+
+          </div>
+        )}
+
+        {/* WELCOME */}
         <div className="welcome">
           Welcome, <strong>{username}</strong> 👋
         </div>
 
+        {/* MESSAGES */}
         <div className="messages">
 
           {messages.length === 0 ? (
 
             <div className="empty-chat">
 
-              <div className="empty-icon">
-                💬
-              </div>
+              <div>💬</div>
 
               <h2>No messages yet</h2>
 
@@ -159,12 +195,12 @@ function App() {
             messages.map((msg, index) => (
 
               <div
-                key={index}
                 className={
                   msg.username === username
                     ? "message my-message"
                     : "message"
                 }
+                key={index}
               >
 
                 <div className="message-user">
@@ -187,6 +223,7 @@ function App() {
 
         </div>
 
+        {/* INPUT */}
         <div className="input-area">
 
           <input
