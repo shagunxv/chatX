@@ -1565,7 +1565,7 @@ body {
 }
 
 /* Mobile layout */
-@media (max-width: 650px) {
+@media (max-width: 900px) {
   .chat-container.chat-layout {
     width: 96%;
     height: 91vh;
@@ -1639,7 +1639,7 @@ body {
 
 
 /* Mobile-only improvements */
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .chat-container.chat-layout {
     width: calc(100% - 16px);
     height: calc(100dvh - 24px);
@@ -1656,10 +1656,10 @@ body {
     width: 100%;
     height: auto;
     max-height: 125px;
-    overflow-y: none;
+    overflow-y: auto;
     flex-shrink: 0;
     border-right: none;
-    border-radius: 1 px solid rgba(196,181,253,0.13);
+    border-radius: 1px solid rgba(196,181,253,0.13);
   }
 
   .sidebar-heading {
