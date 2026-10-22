@@ -16,11 +16,9 @@ body,
 
 body {
   font-family: Arial, sans-serif;
-  background: #080b12;
-  color: white;
-  overflow: hidden;
+  background: #0b0f15;
+  color: #f4f6fa;
 }
-
 
 /* =========================
    MAIN APP
@@ -29,235 +27,236 @@ body {
 .app {
   width: 100%;
   height: 100vh;
-
+  height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding: 20px;
 
   background:
-    radial-gradient(circle at top, #10275c 0%, transparent 45%),
-    linear-gradient(135deg, #030816, #071b46, #04112d);
+    radial-gradient(ellipse at top, #18263b 0%, transparent 55%),
+    #0b0f15;
 }
-
 
 /* =========================
    CHAT CONTAINER
 ========================= */
 
 .chat-container {
-  width: min(1100px, 95vw);
+  position: relative;
+  isolation: isolate;
+  width: min(1100px, 100%);
   height: min(850px, 92vh);
+  height: min(850px, 92dvh);
 
   display: flex;
   flex-direction: column;
-  position: relative;
-  width: 85%;
-  height: 90vh;
-
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 24px;
-
   overflow: hidden;
 
-  background: linear-gradient(
-    180deg,
-    #0d111c 0%,
-    #071b49 55%,
-    #06142e 100%
-  );
+  border: 1px solid #293342;
+  border-radius: 22px;
 
-  box-shadow:
-    0 25px 70px rgba(0, 0, 0, 0.45),
-    inset 0 0 40px rgba(0, 140, 255, 0.08);
+  background: #111823;
+
+  box-shadow: 0 24px 65px rgba(0, 0, 0, 0.35);
 }
-
 
 /* =========================
    HEADER
 ========================= */
 
 .header {
-  height: 78px;
-  min-height: 78px;
-
+  height: 72px;
+  min-height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  padding: 0 26px;
 
-  padding: 0 32px;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-
-  background: rgba(0, 0, 0, 0.18);
+  background: #141b26;
+  border-bottom: 1px solid #293342;
 }
 
 .header h1 {
   margin: 0;
-
-  font-size: 28px;
+  font-size: 25px;
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.6px;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
 /* =========================
    CONNECTION STATUS
 ========================= */
 
-.online {
-  color: #48ff72;
+.online,
+.offline {
+  font-size: 13px;
   font-weight: 600;
-  font-size: 15px;
+  white-space: nowrap;
+}
+
+.online {
+  color: #62df91;
 }
 
 .offline {
-  color: #ff6969;
-  font-weight: 600;
-  font-size: 15px;
+  color: #ff8585;
 }
 
-
 /* =========================
-   LOGIN / JOIN SCREEN
+   JOIN SCREEN
 ========================= */
 
 .join-screen {
   flex: 1;
-
+  min-height: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 28px;
+  text-align: center;
 
-  padding: 30px;
-  transform: translateY(-50px);
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(56, 117, 145, 0.13),
+      transparent 68%
+    );
 }
 
-.join-screen h2{
-  margin: 0 0 10px;
+.join-screen h2 {
+  margin: 0 0 12px;
   font-size: 32px;
-  margin: 20px;
-
+  line-height: 1.25;
 }
 
-.join-screen p{
-  margin: 0 0 25px;
-  opacity: 0.8;
-  font-size: 16px;
+.join-screen p {
+  margin: 0 0 26px;
+  color: #aeb9c8;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
 .join-content {
-  width: min(650px, 90%);
-
+  width: min(600px, 100%);
   text-align: center;
 }
 
 .welcome-icon {
-  font-size: 55px;
-  margin-bottom: 10px;
+  font-size: 48px;
+  margin-bottom: 12px;
 }
 
 .join-content h2 {
   margin: 0 0 12px;
-
   font-size: 32px;
 }
 
 .join-content p {
-  margin: 0 0 28px;
-
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 26px;
+  color: #aeb9c8;
 }
-
 
 /* =========================
    JOIN FORM
 ========================= */
 
 .join-form {
-  width: 100%;
-
+  width: min(600px, 100%);
   display: flex;
-  gap: 12px;
   align-items: center;
-
   justify-content: center;
-  max-width: 600px;
+  gap: 10px;
+}
+
+.join-form input,
+.input-area input {
+  min-width: 0;
+  border: 1px solid #354153;
+  outline: none;
+  border-radius: 12px;
+  background: #e9edf2;
+  color: #17202c;
+  font-family: inherit;
+  font-size: 15px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .join-form input {
   flex: 1;
-
-  height: 55px;
-
-  padding: 0 20px;
-
-  border: none;
-  border-radius: 15px;
-
-  outline: none;
-
-  font-size: 16px;
-
-  background: rgba(255, 255, 255, 0.95);
-  color: #111;
+  height: 52px;
+  padding: 0 16px;
 }
 
-.join-form input::placeholder {
-  color: #777;
+.join-form input:focus,
+.input-area input:focus {
+  border-color: #46b8b5;
+  box-shadow: 0 0 0 3px rgba(70, 184, 181, 0.13);
+}
+
+.join-form input::placeholder,
+.input-area input::placeholder {
+  color: #7c8795;
+}
+
+.join-form button,
+.input-area button {
+  flex-shrink: 0;
+  border: none;
+  border-radius: 12px;
+  background: #279e9e;
+  color: white;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
 }
 
 .join-form button {
-  height: 55px;
-
-  padding: 0 25px;
-
-  border: none;
-  border-radius: 15px;
-
-  background: #20d9dc;
-  color: white;
-
-  font-size: 16px;
-  font-weight: bold;
-
-  cursor: pointer;
-
-  /* transition: 0.2s; */
+  height: 52px;
+  padding: 0 22px;
 }
 
-.join-form button:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.08);
+.join-form button:hover,
+.input-area button:hover {
+  background: #218787;
 }
 
+.join-form button:active,
+.input-area button:active {
+  transform: scale(0.98);
+}
 
 /* =========================
    WELCOME BAR
 ========================= */
 
 .welcome {
-  height: 60px;
-  min-height: 60px;
-
+  min-height: 54px;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
-  font-size: 17px;
-
-  background: rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+  padding: 12px;
+  border-bottom: 1px solid #263140;
+  background: #121a26;
+  color: #bfc9d6;
+  font-size: 14px;
 }
 
 .welcome strong {
   margin-left: 5px;
+  color: #f4f6fa;
 }
-
 
 /* =========================
    MESSAGE AREA
@@ -265,23 +264,22 @@ body {
 
 .messages {
   flex: 1;
-
   min-height: 0;
-
   overflow-y: auto;
-
-  padding: 24px 28px;
+  padding: 22px 24px;
 
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+
+  background: #0f1722;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #3a4656 transparent;
 }
 
-
-/* Scrollbar only inside messages */
-
 .messages::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 
 .messages::-webkit-scrollbar-track {
@@ -289,10 +287,9 @@ body {
 }
 
 .messages::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.25);
+  background: #3a4656;
   border-radius: 10px;
 }
-
 
 /* =========================
    EMPTY CHAT
@@ -300,310 +297,303 @@ body {
 
 .empty-chat {
   flex: 1;
-
   display: flex;
   flex-direction: column;
-
   justify-content: center;
   align-items: center;
-
   text-align: center;
-
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 .empty-icon {
-  font-size: 55px;
   margin-bottom: 10px;
+  font-size: 45px;
 }
 
 .empty-chat h2 {
   margin: 0 0 8px;
-  font-size: 21px;
+  font-size: 20px;
 }
 
 .empty-chat p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.65);
+  color: #9ca9b9;
+  font-size: 14px;
 }
-
 
 /* =========================
    MESSAGE BUBBLES
 ========================= */
 
 .message {
-  width: fit-content;
-  max-width: min(65%, 600px);
-
-  padding: 11px 15px;
-
-  border-radius: 15px;
-
-  background: rgba(255, 255, 255, 0.14);
-
-  word-break: break-word;
-
   align-self: flex-start;
+  width: fit-content;
+  max-width: min(70%, 560px);
+  padding: 11px 14px;
+  border: 1px solid #303b4b;
+  border-radius: 15px 15px 15px 5px;
+  background: #283344;
+  color: #f4f6fa;
+  overflow-wrap: anywhere;
 }
 
 .my-message {
   align-self: flex-end;
-
-  background: #00aebf;
+  border-color: #277f83;
+  border-radius: 15px 15px 5px 15px;
+  background: #246e73;
 }
 
-
-/* USERNAME */
-
 .message-user {
-  margin-bottom: 4px;
-
+  margin-bottom: 5px;
+  color: #f09cbe;
   font-size: 12px;
   font-weight: 700;
-
-  color: #ff9bc5;
 }
 
 .my-message .message-user {
-  color: #ffffff;
+  color: #e2ffff;
 }
-
-
-/* MESSAGE TEXT */
 
 .message-text {
-  font-size: 15px;
-  line-height: 1.4;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
 }
-
-
-/* TIMESTAMP */
 
 .message-time {
   margin-top: 5px;
-
   text-align: right;
-
+  color: #aeb9c8;
   font-size: 10px;
-
-  color: rgba(255, 255, 255, 0.6);
 }
-
 
 /* =========================
    INPUT AREA
 ========================= */
 
 .input-area {
-  height: 82px;
-  min-height: 82px;
+  min-height: 76px;
+  flex-shrink: 0;
 
   display: flex;
   align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
 
-  gap: 12px;
-
-  padding: 13px 22px;
-
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-
-  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid #293342;
+  background: #141b26;
 }
 
 .input-area input {
   flex: 1;
-
-  min-width: 0;
-
-  height: 54px;
-
-  padding: 0 18px;
-
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 14px;
-
-  outline: none;
-
-  font-size: 15px;
-
-  background: rgba(255, 255, 255, 0.92);
-  color: #111;
-}
-
-.input-area input::placeholder {
-  color: #777;
+  width: 0;
+  height: 50px;
+  padding: 0 15px;
 }
 
 .input-area button {
-  height: 54px;
-
-  padding: 0 25px;
-
-  border: none;
-  border-radius: 14px;
-
-  background: #20d9dc;
-  color: white;
-
-  font-size: 15px;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition: 0.2s;
+  height: 50px;
+  padding: 0 22px;
 }
-
-.input-area button:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.08);
-}
-
 
 /* =========================
-   MOBILE / SMALL SCREEN
+   ONLINE PEOPLE
 ========================= */
 
-@media (max-width: 650px) {
-
-  .app {
-    padding: 10px;
-  }
-
-  .chat-container {
-    width: 100%;
-    height: 96vh;
-
-    border-radius: 18px;
-  }
-
-  .header {
-    padding: 0 18px;
-  }
-
-  .header h1 {
-    font-size: 23px;
-  }
-
-  .join-content h2 {
-    font-size: 25px;
-  }
-
-  .join-form {
-    flex-direction: column;
-  }
-
-  .join-form button {
-    width: 100%;
-  }
-
-  .message {
-    max-width: 80%;
-  }
-
-  .input-area {
-    padding: 12px;
-  }
-
-  .input-area button {
-    padding: 0 18px;
-  }
-
-  .join-screen{
-    transform: translateY(-30px);
-  }
-
-  .join-screen h2{
-    font-size: 26px;
-  }
-
-  .join-form{
-    flex-direction: column;
-    max-width: 90%;
-  }
-
-  .join-form input,
-  .join-form button{
-    width: 100%;
-  }
-}
-
-
-/* HEADER RIGHT */
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-/* PEOPLE BUTTON */
 .people-button {
-  border: none;
-  border-radius: 12px;
-
-  padding: 10px 16px;
-
-  background: rgba(255, 255, 255, 0.12);
-  color: white;
-
-  font-size: 14px;
-  font-weight: bold;
-
+  border: 1px solid #354153;
+  border-radius: 10px;
+  padding: 9px 12px;
+  background: #202a38;
+  color: #f4f6fa;
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-
-  transition: 0.2s;
 }
 
 .people-button:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: #2b3748;
 }
 
-/* PEOPLE PANEL */
 .people-panel {
   position: absolute;
-
-  top: 85px;
-  right: 30px;
-
-  width: 230px;
-
-  padding: 18px;
-
-  border-radius: 16px;
-
-  background: #101827;
-
-  border: 1px solid rgba(255, 255, 255, 0.15);
-
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-
+  top: 80px;
+  right: 16px;
+  width: min(230px, calc(100% - 32px));
+  padding: 16px;
+  border: 1px solid #354153;
+  border-radius: 14px;
+  background: #192230;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
   z-index: 10;
 }
 
-/* PEOPLE TITLE */
 .people-title {
-  font-size: 17px;
-  font-weight: bold;
-
-  margin-bottom: 15px;
-
+  margin-bottom: 12px;
   padding-bottom: 10px;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid #354153;
+  font-size: 15px;
+  font-weight: 700;
 }
 
-/* PERSON */
 .person {
   display: flex;
   align-items: center;
-
   gap: 8px;
-
   padding: 8px 0;
-
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .person-status {
   font-size: 11px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 650px) {
+  .app {
+    padding: 0;
+    height: 100vh;
+    height: 100dvh;
+    background: #0b1018;
+  }
+
+  .chat-container {
+    width: 100%;
+    max-width: none;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .header {
+    height: 64px;
+    min-height: 64px;
+    padding: 0 16px;
+    gap: 8px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .header-right {
+    gap: 8px;
+  }
+
+  .online,
+  .offline {
+    font-size: 12px;
+  }
+
+  .people-button {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .welcome {
+    min-height: 50px;
+    font-size: 14px;
+  }
+
+  .messages {
+    padding: 16px 12px;
+    gap: 8px;
+  }
+
+  .message {
+    max-width: 82%;
+    padding: 10px 12px;
+  }
+
+  .message-text {
+    font-size: 14px;
+  }
+
+  .join-screen {
+    padding: 24px 20px;
+  }
+
+  .join-screen h2,
+  .join-content h2 {
+    font-size: 27px;
+  }
+
+  .join-screen p,
+  .join-content p {
+    font-size: 14px;
+  }
+
+  .join-form {
+    flex-direction: column;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .join-form input,
+  .join-form button {
+    width: 100%;
+    flex: none;
+    height: 48px;
+  }
+
+  .input-area {
+    min-height: 72px;
+    padding: 10px 12px;
+    gap: 8px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+  }
+
+  .input-area input {
+    height: 48px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+
+  .input-area button {
+    height: 48px;
+    padding: 0 16px;
+    font-size: 13px;
+  }
+
+  .people-panel {
+    top: 70px;
+    right: 10px;
+  }
+}
+
+/* SHORT MOBILE SCREENS */
+
+@media (max-width: 380px) {
+  .header {
+    padding: 0 10px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .header-right {
+    gap: 6px;
+  }
+
+  .online,
+  .offline {
+    font-size: 11px;
+  }
+
+  .input-area {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .input-area button {
+    padding: 0 12px;
+  }
 }
