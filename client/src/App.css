@@ -1632,3 +1632,74 @@ body {
     min-width: 0;
   }
 }
+
+
+
+
+
+
+/* Mobile-only improvements */
+@media (max-width: 600px) {
+  .chat-container.chat-layout {
+    width: calc(100% - 16px);
+    height: calc(100dvh - 24px);
+    margin: 12px auto;
+  }
+
+  .chat-body {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .users-sidebar {
+    width: 100%;
+    max-height: 115px;
+    overflow-y: auto;
+    flex-shrink: 0;
+    border-right: none;
+    border-bottom: 1px solid rgba(196, 181, 253, 0.13);
+  }
+
+  .sidebar-heading {
+    padding: 8px 12px;
+  }
+
+  .conversation {
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .conversation .messages {
+    min-height: 0;
+    padding: 12px;
+  }
+
+  .conversation .message {
+    max-width: 85%;
+    overflow-wrap: anywhere;
+  }
+
+  .conversation > .input-area {
+    width: 100%;
+    flex-shrink: 0;
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .conversation > .input-area input {
+    min-width: 0;
+    flex: 1;
+    height: 44px;
+    font-size: 14px;
+    padding: 0 12px;
+  }
+
+  .conversation > .input-area button {
+    flex-shrink: 0;
+    height: 44px;
+    padding: 0 14px;
+    white-space: nowrap;
+  }
+}
